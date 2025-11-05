@@ -1,0 +1,5 @@
+{
+  "name": "SkillEra",
+  "description": "An application to track the achievements and goals of students, featuring a leaderboard, profiles, skill tracking, and events. It supports both student and admin roles.",
+  "requestFramePermissions": []
+}

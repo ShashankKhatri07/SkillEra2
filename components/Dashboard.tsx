@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { User, Goal, Achievement, AchievementCategory } from '../types';
@@ -27,7 +28,6 @@ const StatusBadge: React.FC<{ status: 'pending' | 'approved' | 'rejected' }> = (
         </span>
     );
 };
-
 
 const Dashboard: React.FC<DashboardProps> = ({ user, updateUser }) => {
     const upcomingEvents = MOCK_EVENTS.filter(e => !e.registered).slice(0, 2);

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { UserRole, NewUser } from '../types';
 
@@ -8,9 +9,38 @@ interface AuthPageProps {
   onAdminLogin: (email: string, pass: string) => void;
 }
 
+const InputField: React.FC<{ label: string; type: string; placeholder: string; id: string; required?: boolean; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; }> = ({ label, type, placeholder, id, required = true, value, onChange }) => (
+  <div>
+      <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-700">{label}</label>
+      <input 
+          type={type} 
+          id={id}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" 
+          placeholder={placeholder} 
+          required={required} 
+          value={value}
+          onChange={onChange}
+      />
+  </div>
+);
+
+const AuthContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const backgroundImageUrl = 'https://www.apsjodhpur.com/webdata/slider/6bdb8d0d5f3b595d3b341654b2a03f28.png';
+    return (
+      <div 
+        className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+      >
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div className="relative w-full max-w-md bg-white/80 backdrop-blur-md border border-indigo-500/20 rounded-2xl shadow-lg shadow-indigo-500/10 p-8">
+            {children}
+        </div>
+      </div>
+    );
+};
+
 const AuthPage: React.FC<AuthPageProps> = ({ role, onLogin, onSignUp, onAdminLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const backgroundImageUrl = 'https://www.apsjodhpur.com/webdata/slider/6bdb8d0d5f3b595d3b341654b2a03f28.png';
 
   // Form State
   const [username, setUsername] = useState('');
@@ -48,33 +78,6 @@ const AuthPage: React.FC<AuthPageProps> = ({ role, onLogin, onSignUp, onAdminLog
       onSignUp(newUserData);
     }
   };
-
-  const InputField: React.FC<{ label: string; type: string; placeholder: string; id: string; required?: boolean; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; }> = ({ label, type, placeholder, id, required = true, value, onChange }) => (
-    <div>
-        <label htmlFor={id} className="block mb-2 text-sm font-medium text-gray-700">{label}</label>
-        <input 
-            type={type} 
-            id={id}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 placeholder-gray-400" 
-            placeholder={placeholder} 
-            required={required} 
-            value={value}
-            onChange={onChange}
-        />
-    </div>
-  );
-
-  const AuthContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-      <div 
-        className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-      >
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-        <div className="relative w-full max-w-md bg-white/80 backdrop-blur-md border border-indigo-500/20 rounded-2xl shadow-lg shadow-indigo-500/10 p-8">
-            {children}
-        </div>
-      </div>
-  );
 
   // Admin Login View
   if (role === UserRole.ADMIN) {
